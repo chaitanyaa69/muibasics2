@@ -26,12 +26,12 @@ const Header = () => {
         <Toolbar>
           <VaccinesIcon sx={{ transform: "scale(1.5)" }} />
             <>
-              <Link to="/Login" >
+              <Link to="/" >
                 <Button sx={{ marginLeft: "1600px",borderRadius : 90 }} variant="contained">
                   Login
                 </Button>
               </Link>
-              <Link to="/Register" >
+              <Link to="/register" >
               <Button sx={{ marginLeft: "15px", borderRadius : 90 }} variant="contained">
                 Register
               </Button>

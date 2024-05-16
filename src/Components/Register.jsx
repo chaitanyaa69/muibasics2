@@ -191,7 +191,7 @@ export default function Register() {
                               <span
                                 style={{ color: "#beb4fb", cursor: "pointer" }}
                                 onClick={() => {
-                                    navigate("/Login");
+                                    navigate("/");
                                   }}
                               >
                                 Sign In

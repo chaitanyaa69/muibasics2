@@ -174,7 +174,7 @@ export default function ForgotPassword() {
                               <span
                                 style={{ color: "#beb4fb", cursor: "pointer" }}
                                 onClick={() => {
-                                  navigate("/Login");
+                                  navigate("/");
                                 }}
                               >
                                 {" "}Sign In

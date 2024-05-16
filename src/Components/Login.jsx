@@ -185,7 +185,7 @@ export default function Login() {
                               variant="body1"
                               component="span"
                               onClick={() => {
-                                navigate("/ForgotPassword");
+                                navigate("/forgotpassword");
                               }}
                               style={{ marginTop: "10px", cursor: "pointer" ,marginLeft: "50px"}}
                             >
