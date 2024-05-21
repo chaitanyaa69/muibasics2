@@ -33,4 +33,6 @@ export const $onHoverColour = "#779AB9"
             export const validConfirmPassword = "Password doesn't match"
             export const confirmPasswrodRequired = "Re-Enter your password"
 
-        //
+        //TERMS and CONDITION
+
+            export const validateTerms = "Please accept terms and condition"

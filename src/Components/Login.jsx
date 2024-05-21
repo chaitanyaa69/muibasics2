@@ -9,16 +9,23 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { useState, forwardRef } from "react";
+import { useState} from "react";
 import Stack from "@mui/material/Stack";
 import Slide from "@mui/material/Slide";
 import { useNavigate } from "react-router-dom";
 import ReusableTextField from "./Atoms/TextField";
 import ReusableButton from "./Atoms/Button";
 import { signinValidation } from "./Validations/SigninValidations";
-import { useFormik } from "formik";
 import { Formik } from "formik";
 import { Form } from "formik";
+import axios from "axios";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+
+
+
 
 const darkTheme = createTheme({
   palette: {
@@ -53,32 +60,46 @@ const initialValues = {
 }
 
 
+
 export default function Login() {
 
 
-
-  const [open, setOpen] = useState(false);
   const [remember, setRemember] = useState(false);
-  //const vertical = "top";
-  //const horizontal = "right";
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const navigate = useNavigate();
 
-  const onSubmit =(values,actions) => {
-    console.log('Submitted values:', values);
-    actions.resetForm()
-  }
+  const onSubmit = (values, actions) => {
+    const { email, password } = values;
 
-  const handleSubmit = async (event) => {
-    setOpen(true);
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    console.log({ email, password }); // Optional for debugging
+  
+    axios.post('https://reqres.in/api/login', {
+    email,
+    password
+  })
+    .then(response => {
+      if (response.status === 200) {
+        console.log("Login successful:", response.data);
+        navigate('/success')
+        // Handle successful login (e.g., redirect, display success message)
+        // actions.resetForm(); // Uncomment to reset the form after success
+      } else {
+        setOpenSnackbar(true); // Open snackbar on login failure
+        console.error("Login failed:", response.data || response.statusText);
+      }
+    })
+    .catch(error => {
+      setOpenSnackbar(true); // Open snackbar on network errors or other non-200 responses
+      console.error("Login error:", error.response?.data || error.message);
+    });
   };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway"){
       return;
     }
-    setOpen(false);
+    setOpenSnackbar(false);
   };
 
   function TransitionLeft(props) {
@@ -89,6 +110,30 @@ export default function Login() {
 
   return (
     <>
+    <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000} // Auto-close after 6 seconds
+        onClose={() => setOpenSnackbar(false)}
+        TransitionComponent={TransitionLeft}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        action={
+          <IconButton
+           size="small"
+           aria-label="close"
+           color="white" // Change to "primary" or your desired color
+           onClick={() => setOpenSnackbar(false)}
+         >
+           <ErrorOutlineIcon fontSize="medium" />
+         </IconButton>
+
+       }
+        
+      >
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%',color : "white",  borderRadius : 15, backgroundColor : "#DB1212"}}>
+          Login failed! Please check your credentials.
+        </Alert>
+      </Snackbar>
+
       <div
         style={{
           backgroundImage: `url(${bgimg})`,
@@ -150,7 +195,7 @@ export default function Login() {
                       >
                       <Grid container spacing={1}>
                         <Grid item xs={12} sx={{ ml: "6em", mr: "6em" }}>
-                        <ReusableTextField 
+                        <ReusableTextField
                         error={errors.email && touched.email} 
                         label="Email" 
                         name="email" 

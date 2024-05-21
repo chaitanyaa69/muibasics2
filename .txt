@@ -1,72 +1,11 @@
-import React, { useState } from "react";
-import {AppBar,Button,Tab,Tabs,Toolbar,Typography,useMediaQuery,useTheme} from "@mui/material";
-import Healing from "@mui/icons-material/Healing";
-import { Link } from "react-router-dom";
-//import DrawerComp from "./Drawer";
-const Header = () => {
-  const [value, setValue] = useState();
-  const theme = useTheme();
-  console.log(theme);
-  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-  console.log(isMatch)
+action={
+           <IconButton
+            size="small"
+            aria-label="close"
+            color="white" // Change to "primary" or your desired color
+            onClick={() => setOpenSnackbar(false)}
+          >
+            <ErrorOutlineIcon fontSize="medium" />
+          </IconButton>
 
-  return (
-    <React.Fragment>
-      <AppBar sx={{ background: "#063970" }}>
-        <Toolbar>
-          <Healing sx={{ transform: "scale(1.5)" }} />
-          {isMatch ? (
-            <>
-              <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>
-                Shoppee
-              </Typography>
-            </>
-          ) : (
-            <>
-              <Tabs
-                sx={{ marginLeft: "auto" }}
-                indicatorColor="secondary"
-                textColor="inherit"
-                value={value}
-                onChange={(e, value) => setValue(value)}
-              >
-                <Tab label="Home" />
-                <Tab label="Services" />
-                <Tab label="About Us" />
-                <Tab label="Contact" />
-              </Tabs>
-              <Link to="/Login">
-                <Button sx={{ marginLeft: "auto" }} variant="contained">
-                  Login
-                </Button>
-              </Link>
-              <Button sx={{ marginLeft: "10px" }} variant="contained">
-                SignUp
-              </Button>
-            </>
-          )}
-        </Toolbar>
-      </AppBar>
-    </React.Fragment>
-  );
-};
-
-export default Header;
-
-
-
-
-
-
-
-<Snackbar
-        open={open}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        TransitionComponent={TransitionLeft}
-        anchorOrigin={{ vertical, horizontal }}
-      >
-        <Alert onClose={handleClose} severity="error" sx={{ width: "100%",borderRadius : 9 }}>
-          Failed! Enter correct username and password.
-        </Alert>
-      </Snackbar>
+        }
