@@ -2,9 +2,9 @@
 // IMAGES
 
 export const bgimg = require('./Assets/img/bgimgg3.jpg');
-export const loginImg = require('./Assets/img/7317079.jpg')
+export const loginImg = require('./Assets/img/altreg.jpg')
 export const registerImg = require('./Assets/img/login11.jpg')
-export const forgPassImg = require('./Assets/img/login.png')
+export const forgPassImg = require('./Assets/img/forgpass1.jpg')
 
 // COLORS
 
@@ -25,7 +25,7 @@ export const $onHoverColour = "#779AB9"
         
         //PASSWD
 
-            export const validPassword = "Password must be 8 characters"
+            export const validPassword = "Password must be 7 characters"
             export const passwordRequired = "Password is Required"
         
         //CNFM PASSWD

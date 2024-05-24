@@ -4,7 +4,9 @@ import ForgotPassword from './Components/ForgotPassword'
 import Login from './Components/Login'
 import Register from './Components/Register'
 import { Route, Routes } from 'react-router-dom'
-import { Success } from './Components/Success'
+import  Success  from './Components/Success'
+import { BrowserRouter } from 'react-router-dom';
+
 
 function App() {
   return (

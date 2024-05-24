@@ -1,15 +1,25 @@
 import React from 'react';
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import { $tertiaryColour } from '../../Config';
 
-const ReusableButton = ({ label, type = 'submit', variant = 'contained', size = 'large', fullWidth = true, disabled = false, hoverColor, ...props }) => {
+const ReusableButton = ({
+  label,
+  type = 'submit',
+  variant = 'contained',
+  size = 'large',
+  fullWidth = true,
+  disabled = false,
+  hoverColor,
+  loading = false,
+  ...props
+}) => {
   return (
     <Button
       type={type}
       variant={variant}
       fullWidth={fullWidth}
       size={size}
-      disabled={disabled}
+      disabled={disabled || loading}
       sx={{
         mt: '10px',
         mr: '20px',
@@ -17,12 +27,12 @@ const ReusableButton = ({ label, type = 'submit', variant = 'contained', size = 
         color: '#ffffff',
         minWidth: '170px',
         backgroundColor: $tertiaryColour,
-        ...(disabled ? { cursor: 'not-allowed', opacity: 0.5 } : {}),
+        ...(disabled || loading ? { cursor: 'not-allowed', opacity: 0.5 } : {}),
         ...(hoverColor && { '&:hover': { backgroundColor: hoverColor } }),
-        ...props, 
+        ...props,
       }}
     >
-      {label}
+      {loading ? <CircularProgress size={25} color="info"/> : label}
     </Button>
   );
 };

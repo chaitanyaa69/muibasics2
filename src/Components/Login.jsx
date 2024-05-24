@@ -23,6 +23,9 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { login } from "../Features/UserSice";
+import { useDispatch } from "react-redux";
+import { loginUrl } from "../Api-Config";
 
 
 
@@ -55,7 +58,7 @@ const center = {
 };
 
 const initialValues = {
-  email: "",
+  username: "",
   password :""
 }
 
@@ -66,33 +69,43 @@ export default function Login() {
 
   const [remember, setRemember] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [loading,setLoading] = useState(false);
+  const dispatch = useDispatch()
 
   const navigate = useNavigate();
 
-  const onSubmit = (values, actions) => {
-    const { email, password } = values;
+  const onSubmit = async (values, actions) => {
+    const { username, password } = values;
 
-    console.log({ email, password }); // Optional for debugging
-  
-    axios.post('https://reqres.in/api/login', {
-    email,
-    password
-  })
-    .then(response => {
-      if (response.status === 200) {
+    console.log({ username, password }); // Optional for debugging
+    setLoading(true);
+    try {
+      const response = await axios.post(loginUrl, {
+        username : username,
+        password: password,
+        //expiresInMins: 30,
+      });
+
+      if (response.status===200) {
         console.log("Login successful:", response.data);
-        navigate('/success')
-        // Handle successful login (e.g., redirect, display success message)
-        // actions.resetForm(); // Uncomment to reset the form after success
-      } else {
-        setOpenSnackbar(true); // Open snackbar on login failure
-        console.error("Login failed:", response.data || response.statusText);
+        localStorage.setItem('token',response.data.token)
+
+        const userData = response.data
+        setLoading(false)
+        /*if (response.data.image) {
+            userData.image = response.data.image;
+        }*/
+        dispatch(login(userData)); 
+        navigate('/success',{state : {user : response.data}});
       }
-    })
-    .catch(error => {
+       else  console.error("Login failed:", response.data.message); 
+       setLoading(false);
+      
+    } catch (error ){
+      setLoading(false);
       setOpenSnackbar(true); // Open snackbar on network errors or other non-200 responses
       console.error("Login error:", error.response?.data || error.message);
-    });
+    };
   };
 
   const handleClose = (event, reason) => {
@@ -123,7 +136,7 @@ export default function Login() {
            color="white" // Change to "primary" or your desired color
            onClick={() => setOpenSnackbar(false)}
          >
-           <ErrorOutlineIcon fontSize="medium" />
+           <ErrorOutlineIcon fontSize="medium"/>
          </IconButton>
 
        }
@@ -196,14 +209,14 @@ export default function Login() {
                       <Grid container spacing={1}>
                         <Grid item xs={12} sx={{ ml: "6em", mr: "6em" }}>
                         <ReusableTextField
-                        error={errors.email && touched.email} 
-                        label="Email" 
-                        name="email" 
-                        autoComplete="email" 
+                        error={errors.username && touched.username} 
+                        label="Username" 
+                        name="username" 
+                        autoComplete="username" 
                         onChange={handleChange}
                         onBlur={handleBlur} 
                          // Pass touched state from formik
-                        helperText ={errors.email} />
+                        helperText ={errors.username} />
                         </Grid>
                         <Box height={17} />
                         <Grid item xs={12} sx={{ ml: "6em", mr: "6em" }}>
@@ -239,7 +252,7 @@ export default function Login() {
                           </Stack>
                         </Grid>
                         <Grid item xs={18} sx={{ ml: "6em", mr: "6em" }}>
-                        <ReusableButton label="Sign In" hoverColor={$onHoverColour}/>
+                        <ReusableButton label="Sign In" loading={loading} hoverColor={$onHoverColour}/>
                         </Grid>
                         <Grid item xs={12} sx={{ ml: "6em", mr: "6em" }}>
                           <Stack direction="row" spacing={2}>

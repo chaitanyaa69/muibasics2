@@ -1,0 +1,1 @@
+export const loginUrl = 'https://dummyjson.com/auth/login'
