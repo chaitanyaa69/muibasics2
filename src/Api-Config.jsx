@@ -1,1 +1,1 @@
-export const loginUrl = 'https://dummyjson.com/auth/login'
+export const loginUrl = 'https://api-dev.hdgtl.xyz/login'

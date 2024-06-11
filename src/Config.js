@@ -4,8 +4,9 @@
 export const bgimg = require('./Assets/img/bgimgg3.jpg');
 export const loginImg = require('./Assets/img/altreg.jpg')
 export const registerImg = require('./Assets/img/login11.jpg')
-export const forgPassImg = require('./Assets/img/forgpass1.jpg')
-
+export const forgPassImg = require('./Assets/img/forgpass1.jpg');
+export const trustrIcon=require('./Assets/img/trustr.png')
+export const defaultPfp=require('./Assets/img/userpfp.png')
 // COLORS
 
 export const $primaryColour = "#4F6278"
@@ -16,6 +17,13 @@ export const $onHoverColour = "#779AB9"
 
 
 //ERROR TEXTS
+
+
+        //USERNAME
+
+
+                export const validUsername = "Enter a valid username";
+                export const usernameRequired="Username is required"
 
         //EMAIL
 
@@ -36,3 +44,9 @@ export const $onHoverColour = "#779AB9"
         //TERMS and CONDITION
 
             export const validateTerms = "Please accept terms and condition"
+
+
+
+
+//pending works
+    //proper funcitoning of form validations 

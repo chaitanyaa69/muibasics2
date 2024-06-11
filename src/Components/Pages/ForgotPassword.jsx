@@ -1,9 +1,8 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { $onHoverColour, $primaryColour, registerImg } from "../Config";
-import { bgimg } from "../Config";
-import ReusableButton from "./Atoms/Button";
-import ReusableTextField from "./Atoms/TextField";
+import { $onHoverColour, bgimg, forgPassImg } from "../../Config";
+import ReusableButton from "../Atoms/Button";
+import ReusableTextField from "../Atoms/TextField";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
@@ -13,9 +12,10 @@ import { useState, forwardRef } from "react";
 import Stack from "@mui/material/Stack";
 import Slide from "@mui/material/Slide";
 import { useNavigate } from "react-router-dom";
-import {Form, Formik, useFormik} from "formik"
-import * as Yup from "yup"
-import { registerValidation } from "./Validations/RegisterValidation";
+import { useFormik } from "formik";
+import { forgotPasswordValidation } from "../Validations/ForgotPasswordValidation";
+import { Formik } from "formik";
+import { Form } from "formik";
 
 const darkTheme = createTheme({
   palette: {
@@ -35,34 +35,39 @@ const boxstyle = {
   borderTopLeftRadius: 30, 
   borderTopRightRadius: 30, 
   borderBottomLeftRadius: 30, 
-  borderBottomRightRadius: 30, 
+  borderBottomRightRadius: 30,
 };
 
 const center = {
   position: "relative",
   top: "50%",
-  left: "25%",
+  left: "23%",
 };
+
 const initialValues = {
-  email: "",
-  password :"",
-  confirmpassword :""
+  email : ""
 }
 
-export default function Register() {
+export default function ForgotPassword() {
 
-  
+  const formik = useFormik({
+    initialValues : initialValues,
+    validationSchema : forgotPasswordValidation,
+    onSubmit : async(values)=>{
+      console.log(values)
+    }
+  })
+
+  const onSubmit =(values,actions) => {
+    console.log('Submitted values:', values);
+    actions.resetForm()
+  }
 
   const [open, setOpen] = useState(false);
   const [remember, setRemember] = useState(false);
   const vertical = "top";
   const horizontal = "right";
   const navigate = useNavigate();
-
-  const onSubmit =(values,actions) => {
-    console.log('Submitted values:', values);
-    actions.resetForm()
-  }
 
   const handleSubmit = async (event) => {
     setOpen(true);
@@ -71,7 +76,7 @@ export default function Register() {
   };
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway"){
+    if (reason === "clickaway") {
       return;
     }
     setOpen(false);
@@ -96,7 +101,7 @@ export default function Register() {
             <Grid item xs={12} sm={12} lg={6}>
               <Box
                 style={{
-                  backgroundImage: `url(${registerImg})`,
+                  backgroundImage: `url(${forgPassImg})`,
                   backgroundSize: "cover",
                   marginTop: "40px",
                   marginLeft: "15px",
@@ -112,73 +117,51 @@ export default function Register() {
                   backgroundSize: "cover",
                   height: "70vh",
                   minHeight: "500px",
-                  backgroundColor: $primaryColour,
+                  backgroundColor: "#4F6278",
                   borderTopRightRadius: 30, 
                   borderBottomRightRadius: 30
-                }}>
+                }}
+              >
                 <ThemeProvider theme={darkTheme}>
                   <Container>
-                    <Box height={42}/>
+                    <Box height={130} />
                     <Box sx={center}>
                       <Avatar
-                        sx={{ height :80, width : 80, ml: "114px", mb: "25px", bgcolor: "#ffffff",justifyContent : "center" }}
+                        sx={{ height :80, width : 80, ml: "130px", mb: "25px", bgcolor: "#ffffff" }}
                       >
-                        <LockOutlinedIcon style={{fontSize : '40px'}}/>
+                        <LockOutlinedIcon />
                       </Avatar>
                       <Typography component="h1" variant="h3">
-                        Create Account
+                        Reset Password
                       </Typography>
                     </Box>
-                    <Box height={15} />
+                    <Box height={25} />
+
                     <Formik
                       initialValues={initialValues}
-                      validationSchema={registerValidation}
+                      validationSchema={forgotPasswordValidation}
                       onSubmit={onSubmit}
                       >
                         {({errors,touched,handleBlur,handleChange})=>(
                     <Form
                       noValidate
-                      //onSubmit={formik.handleSubmit}
+                      //onSubmit={handleSubmit}
                       sx={{ mt: 2 }}
-                    >
+                      >
                       <Grid container spacing={1}>
                         <Grid item xs={12} sx={{ ml: "6em", mr: "6em" }}>
-                            <ReusableTextField
-                             label="Username" 
-                             name="email" 
-                             autoComplete="email" 
-                             error={errors.email && touched.email} 
-                             helperText ={errors.email} 
-                             onChange={handleChange}
-                             onBlur={handleBlur} />
+                          <ReusableTextField 
+                          label="Email" 
+                          name="email" 
+                          autoComplete="email" 
+                          error={errors.email && touched.email} 
+                          helperText ={errors.email} 
+                          onChange={handleChange}
+                          onBlur={handleBlur}/>
                         </Grid>
-                        <Box height={10} />
+                        <Box height={25} />
                         <Grid item xs={12} sx={{ ml: "6em", mr: "6em" }}>
-                            <ReusableTextField
-                             error={errors.password && touched.password} 
-                             label="Password" 
-                             name="password" 
-                             type="password" 
-                             autoComplete="new-password" 
-                             helperText ={errors.password} 
-                             onChange={handleChange}
-                             onBlur={handleBlur}/>
-                        </Grid>
-                        <Box height={10} />
-                        <Grid item xs={12} sx={{ ml: "6em", mr: "6em" }}>
-                            <ReusableTextField 
-                             error={errors.confirmpassword && touched.confirmpassword}
-                             label="Confirm Password" 
-                             name="confirmpassword" 
-                             type="password" 
-                             autoComplete="new-password"
-                             helperText={errors.confirmpassword} 
-                             onChange={handleChange}
-                             onBlur={handleBlur}/>
-                        </Grid>
-                        <Box height={10} />
-                        <Grid item xs={12} sx={{ ml: "6em", mr: "6em" }}>
-                            <ReusableButton label="Register" hoverColor={$onHoverColour}/>
+                          <ReusableButton label="Send reset link" hoverColor={$onHoverColour}/>
                         </Grid>
                         <Grid item xs={12} sx={{ ml: "6em", mr: "6em" }}>
                           <Stack direction="row" spacing={2}>
@@ -187,22 +170,22 @@ export default function Register() {
                               component="span"
                               style={{ marginTop: "10px" }}
                             >
-                              Already have an Account?{" "}
+                              Login to your Account.
                               <span
                                 style={{ color: "#beb4fb", cursor: "pointer" }}
                                 onClick={() => {
-                                    navigate("/");
-                                  }}
+                                  navigate("/");
+                                }}
                               >
-                                Sign In
+                                {" "}Sign In
                               </span>
                             </Typography>
                           </Stack>
                         </Grid>
                       </Grid>
-                    </Form>
+                      </Form>
                     )}
-                  </Formik>
+                    </Formik>
                   </Container>
                 </ThemeProvider>
               </Box>

@@ -3,7 +3,7 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
 
-import userReducer from "../Features/UserSice"
+import userReducer from "../Features/UserSlice"
 
 const persistConfig ={
     //type : REGISTER,

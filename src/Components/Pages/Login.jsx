@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { $onHoverColour, bgimg } from "../Config";
-import { loginImg } from "../Config";
+import { $onHoverColour, bgimg } from "../../Config";
+import { loginImg } from "../../Config";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
@@ -13,9 +13,9 @@ import { useState} from "react";
 import Stack from "@mui/material/Stack";
 import Slide from "@mui/material/Slide";
 import { useNavigate } from "react-router-dom";
-import ReusableTextField from "./Atoms/TextField";
-import ReusableButton from "./Atoms/Button";
-import { signinValidation } from "./Validations/SigninValidations";
+import ReusableTextField from "../Atoms/TextField";
+import ReusableButton from "../Atoms/Button";
+import { signinValidation } from "../Validations/SigninValidations";
 import { Formik } from "formik";
 import { Form } from "formik";
 import axios from "axios";
@@ -23,9 +23,10 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import { login } from "../Features/UserSice";
+import { login } from "../../Features/UserSlice";
 import { useDispatch } from "react-redux";
-import { loginUrl } from "../Api-Config";
+import { loginUrl } from "../../Api-Config";
+import { trustrIcon } from "../../Config";
 
 
 
@@ -58,7 +59,7 @@ const center = {
 };
 
 const initialValues = {
-  username: "",
+  email: "",
   password :""
 }
 
@@ -74,15 +75,15 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const onSubmit = async (values, actions) => {
-    const { username, password } = values;
+  const onSubmit = async (values) => {
+    const { email, password } = values;
 
-    console.log({ username, password }); // Optional for debugging
+    console.log({ email, password }); // Optional for debugging
     setLoading(true);
     try {
       const response = await axios.post(loginUrl, {
-        username : username,
-        password: password,
+        email,
+        password
         //expiresInMins: 30,
       });
 
@@ -95,20 +96,21 @@ export default function Login() {
         /*if (response.data.image) {
             userData.image = response.data.image;
         }*/
-        dispatch(login(userData)); 
-        navigate('/success',{state : {user : response.data}});
+        dispatch(login(userData,email)); 
+        localStorage.setItem('email',email)
+        navigate('/dashboard',{state : {email}});
       }
        else  console.error("Login failed:", response.data.message); 
        setLoading(false);
       
     } catch (error ){
       setLoading(false);
-      setOpenSnackbar(true); // Open snackbar on network errors or other non-200 responses
+      setOpenSnackbar(true);
       console.error("Login error:", error.response?.data || error.message);
     };
   };
 
-  const handleClose = (event, reason) => {
+  const handleClose = (reason) => {
     if (reason === "clickaway"){
       return;
     }
@@ -118,9 +120,6 @@ export default function Login() {
   function TransitionLeft(props) {
     return <Slide {...props} direction="left" />;
   }
-  
- 
-
   return (
     <>
     <Snackbar
@@ -152,7 +151,7 @@ export default function Login() {
           backgroundImage: `url(${bgimg})`,
           backgroundSize: "cover",
           height: "100vh",
-          color: "#f5f5f5",
+          color: "#f5f5f5", 
         }}
       >
         <Box sx={boxstyle}>
@@ -188,7 +187,7 @@ export default function Login() {
                       <Avatar
                         sx={{ height: 80, width : 80, ml: "36px", mb: "25px", bgcolor: "#ffffff", fontSize : "6rem" }}
                       >
-                    <LockOutlinedIcon style={{ fontSize: '40px' }} />
+                        <img src={trustrIcon} alt="Trustr Logo" style={{ width: '53px', height: '53px' }} />
                       </Avatar>
                       <Typography component="h1" variant="h3" textAlign={{center}}>
                         Sign In
@@ -209,26 +208,26 @@ export default function Login() {
                       <Grid container spacing={1}>
                         <Grid item xs={12} sx={{ ml: "6em", mr: "6em" }}>
                         <ReusableTextField
-                        error={errors.username && touched.username} 
-                        label="Username" 
-                        name="username" 
-                        autoComplete="username" 
-                        onChange={handleChange}
-                        onBlur={handleBlur} 
-                         // Pass touched state from formik
-                        helperText ={errors.username} />
+                            error={errors.email && touched.email}
+                            label="Email"
+                            name="email"
+                            autoComplete="email"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            helperText={touched.email && errors.email ? errors.email : ''}
+                          />
                         </Grid>
                         <Box height={17} />
                         <Grid item xs={12} sx={{ ml: "6em", mr: "6em" }}>
-                        <ReusableTextField
-                          error={errors.password && touched.password}
-                          label="Password" 
-                          name="password" 
-                          autoComplete="password" 
-                          onChange={handleChange}
-                          onBlur={handleBlur} 
-                          helperText ={errors.password} 
-                        />
+                          <ReusableTextField
+                            error={errors.password && touched.password}
+                            label="Password"
+                            name="password"
+                            autoComplete="password"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            helperText={touched.password && errors.password ? errors.password : ''}
+                          />
                         </Grid>
                         <Box height={17} />
                         <Grid item xs={12} sx={{ ml: "6em", mr: "6em" }}>

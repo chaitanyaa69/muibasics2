@@ -1,0 +1,52 @@
+[
+  {
+    "userId": "1",
+    "firstName": "Chaitanya",
+    "lastName": "Reddy",
+    "email": "patient.vijay.dev@gmail.com",
+    "contact": "1234567890"
+  },
+  {
+    "userId": "2",
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "email": "jane.doe@example.com",
+    "contact": "0987654321"
+  },
+  {
+    "userId": "3",
+    "firstName": "Steph",
+    "lastName": "Curry",
+    "email": "eve.holt@reqres.in",
+    "contact": "6666666666"
+  },
+  {
+    "userId": "4",
+    "firstName": "Lebron",
+    "lastName": "James",
+    "email": "21501a05f0@pvpsit.ac.in",
+    "contact": "32434567897"
+  },
+  {
+    "userId": "5",
+    "firstName": "Kevin",
+    "lastName": "Garnett",
+    "email": "kg@gmail.com",
+    "contact": "32434567897"
+  },
+  {
+    "userId": "6",
+    "firstName": "D",
+    "lastName": "Rose",
+    "email": "21501a05f0@pvpsit.ac.in",
+    "contact": "1234567890"
+  },
+  {},
+  {
+    "userId": "123",
+    "firstName": "Sofi",
+    "lastName": "River",
+    "email": "eve.holt@reqres.in",
+    "contact": "23435345345"
+  }
+]

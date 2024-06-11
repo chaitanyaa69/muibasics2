@@ -1,0 +1,248 @@
+import { useEffect,useState } from "react";
+import { Box, Button, TextField } from "@mui/material";
+import { Formik } from "formik";
+import * as yup from "yup";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Header from "../../Components/dashboardPages/Header";
+import CircularProgress from "@mui/material/CircularProgress";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../Features/UserSlice";
+
+const Form = () => {
+  const isNonMobile = useMediaQuery("(min-width:600px)");
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate=useNavigate();
+  const user = useSelector(selectUser);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://664af189a300e8795d43864b.mockapi.io/crud-op');
+        console.log(response.data); // Log the response data to the console
+        setData(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <CircularProgress />;
+  }
+
+
+
+  const handleFormSubmit = async (values, actions) => {
+    const response = await fetch('http://localhost:3001/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    });
+
+    const result = await response.json();
+    console.log(result);
+
+    actions.resetForm();
+  };
+  
+
+
+  return (
+    <Box m="20px">
+      <Header title="Profile" subtitle="Change your Profile" />
+
+      <Formik
+        onSubmit={handleFormSubmit}
+        initialValues={initialValues}
+        validationSchema={checkoutSchema}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleBlur,
+          handleChange,
+          handleSubmit,
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <Box
+              display="grid"
+              gap="30px"
+              gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+              sx={{
+                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+              }}
+            >
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="First Name"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.firstName}
+                name="firstName"
+                error={!!touched.firstName && !!errors.firstName}
+                helperText={touched.firstName && errors.firstName}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Last Name"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.lastName}
+                name="lastName"
+                error={!!touched.lastName && !!errors.lastName}
+                helperText={touched.lastName && errors.lastName}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Email"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.email}
+                name="email"
+                error={!!touched.email && !!errors.email}
+                helperText={touched.email && errors.email}
+                sx={{ gridColumn: "span 4" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Date of Birth"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.dateOfBirth}
+                name="dateOfBirth"
+                error={!!touched.dateOfBirth && !!errors.dateOfBirth}
+                helperText={touched.dateOfBirth && errors.dateOfBirth}
+                sx={{ gridColumn: "span 4" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Weight"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.weight}
+                name="weight"
+                error={!!touched.weight && !!errors.weight}
+                helperText={touched.weight && errors.weight}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Height"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.height}
+                name="height"
+                error={!!touched.height && !!errors.height}
+                helperText={touched.height && errors.height}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Education"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.education}
+                name="education"
+                error={!!touched.education && !!errors.education}
+                helperText={touched.education && errors.education}
+                sx={{ gridColumn: "span 4" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Nationality"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.nationality}
+                name="nationality"
+                error={!!touched.nationality && !!errors.nationality}
+                helperText={touched.nationality && errors.nationality}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Ethnicity"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.ethnicity}
+                name="ethnicity"
+                error={!!touched.ethnicity && !!errors.ethnicity}
+                helperText={touched.ethnicity && errors.ethnicity}
+                sx={{ gridColumn: "span 2" }}
+              />
+            </Box>
+            <Box display="flex" justifyContent="end" mt="20px">
+              <Button type="submit" color="secondary" variant="contained">
+                Create New User
+              </Button>
+            </Box>
+          </form>
+        )}
+      </Formik>
+    </Box>
+  );
+};
+
+const checkoutSchema = yup.object().shape({
+  userId: yup.string().min(3,"ID must be 3 characters long").required("ID is required"),
+  firstName: yup.string().required("Firstname is required"),
+  lastName: yup.string().required("Lastname is required"),
+  email: yup.string().email("Invalid e-mail address").required("Email is required"),
+  dateOfBirth: yup.string().required("Date of Birth is required"),
+  weight: yup.string().required("Weight is required"),
+  height: yup.string().required("Height is required"),
+  education: yup.string().required("Education is required"),
+  nationality: yup.string().required("Nationality is required"),
+  ethnicity: yup.string().required("Ethnicity is required"),
+});
+
+const initialValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  weight:"",
+  height:"",
+  dateOfBirth: "",
+  education: "",
+  nationality: "",
+  ethnicity: "",
+};
+
+export default Form;

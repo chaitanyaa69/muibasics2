@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import Topbar from "./scenes/global/Topbar";
+import Sidebar from "./scenes/global/Sidebar";
+import Dashboard from "./scenes/dashboard";
+import Team from "./scenes/team";
+import Invoices from "./scenes/invoices";
+import Contacts from "./scenes/contacts";
+import Bar from "./scenes/bar";
+import Form from "./scenes/form";
+import Line from "./scenes/line";
+import Pie from "./scenes/pie";
+import FAQ from "./scenes/faq";
+import Geography from "./scenes/geography";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { ColorModeContext, useMode } from "./theme";
+import Calendar from "./scenes/calendar/calendar";
+import ResponsiveAppBar from './Components/Pages/Header';
+import ForgotPassword from './Components/Pages/ForgotPassword';
+import Login from './Components/Pages/Login';
+import Register from './Components/Pages/Register';
+import Success from './Components/Dashboard/Dashboard';
+import Profile from './Components/Dashboard/Profile';
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+function App() {
+  const [theme, colorMode] = useMode();
+  const [isSidebar, setIsSidebar] = useState(true);
 
-## Available Scripts
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="app">
+          <Sidebar isSidebar={isSidebar} />
+          <main className="content">
+            <Topbar setIsSidebar={setIsSidebar} />
+            <Routes>
+            <ResponsiveAppBar />
+              <Route path="/" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forgotpassword" element={<ForgotPassword />}/>
+              <Route path="/success" element={<Success />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/contacts" element={<Contacts />} />
+              <Route path="/invoices" element={<Invoices />} />
+              <Route path="/form" element={<Form />} />
+              <Route path="/bar" element={<Bar />} />
+              <Route path="/pie" element={<Pie />} />
+              <Route path="/line" element={<Line />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/geography" element={<Geography />} />
+            </Routes>
+          </main>
+        </div>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
+}
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+export default App;
