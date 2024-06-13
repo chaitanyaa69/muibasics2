@@ -5,8 +5,6 @@ const fs = require('fs').promises; // Import file system module
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 8080;
-const OpenAIApi = require('openai');
-require('dotenv').config();
 
 // Middleware to parse JSON requests
 app.use(bodyParser.json());
