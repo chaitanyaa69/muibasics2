@@ -1,11 +1,16 @@
-import React from 'react'
+import { Box } from "@mui/material";
+import Header from "../../Components/dashboardPages/Header";
+import BarChart from "../../Components/dashboardPages/BarChart";
 
-const index = () => {
+const Bar = () => {
   return (
-    <div>
-      Welcome to Bar
-    </div>
-  )
-}
+    <Box m="20px">
+      <Header title="Bar Chart" subtitle="Simple Bar Chart" />
+      <Box height="75vh">
+        <BarChart />
+      </Box>
+    </Box>
+  );
+};
 
-export default index
+export default Bar;

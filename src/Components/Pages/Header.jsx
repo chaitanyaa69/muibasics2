@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { AppBar, Button, Toolbar, Avatar, Drawer, List, ListItem, ListItemText, IconButton, Typography, Box, Divider, ListItemButton } from "@mui/material";
+import { AppBar, Button, Toolbar, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../../Features/UserSlice";
 import { useNavigate } from "react-router-dom";
 import VaccinesIcon from '@mui/icons-material/Vaccines';
 import { $secondaryColour } from "../../Config";
+import { tokens } from "../../theme";
 
 
 const Header = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const dispatch = useDispatch();

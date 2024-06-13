@@ -1,0 +1,32 @@
+[
+    {
+      "question": "What is the purpose of this healthcare web application?",
+      "answer": "The purpose of this healthcare web application is to track and monitor patients' health analytics. It helps patients and healthcare providers manage health data, track progress, and make informed decisions about health and wellness."
+    },
+    {
+      "question": "How can I and how often should I update my health data?",
+      "answer": "Once logged in, navigate to the 'Account' section. Here, you can manually enter new health metrics or upload data from compatible health devices. Ensure to save any changes you make.It is recommended to update your health data regularly to ensure accurate tracking and monitoring. Depending on your health condition, you might update data daily, weekly, or after each doctor's visit"
+    },
+    {
+      "question": "Is my health data secure?",
+      "answer": "Yes, we prioritize your privacy and security. All health data is encrypted and stored securely in compliance with healthcare regulations. Only you and authorized healthcare providers can access your data."
+    },
+    {
+      "question": "What should I do if I notice incorrect data in my health records?",
+      "answer": "If you notice any discrepancies in your health records, go to the 'Account' section and edit the incorrect entries. If you need further assistance, contact our support team for help."
+    },
+    
+    {
+      "question": "What types of health metrics can I track with this application?",
+      "answer": "Our application allows you to track a wide range of health metrics, including blood pressure, heart rate, blood glucose levels, weight, BMI, physical activity, and more. Check the 'My Health Data' section for a complete list of supported metrics."
+    },
+    {
+      "question": "How can I schedule an appointment with my doctor?",
+      "answer": "In the 'Appointments' section, you can schedule reminders for medication, appointments, and health check-ups. Customize your preferences to stay on track with your health plans."
+    },
+    {
+      "question": "Can I export my health data?",
+      "answer": "Yes, you can export your health data by clicking on the Export Data in 'Account' section. Select the data you wish to export and choose your preferred format (e.g., PDF, CSV). This feature allows you to maintain personal records or share data offline."
+    }
+  ]
+  

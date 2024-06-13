@@ -19,6 +19,7 @@ import ForgotPassword from './Components/Pages/ForgotPassword';
 import Login from './Components/Pages/Login';
 import Register from './Components/Pages/Register';
 import Appointments from "./scenes/calendar/calendar";
+import ServerProb from "./Components/Pages/ServerProb";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -34,7 +35,7 @@ function App() {
   }, [location]);
   // Function to check if the current path should hide the Topbar and Sidebar
   const isAuthPage = () => {
-    const authPaths = ["/", "/register", "/forgotpassword"];
+    const authPaths = ["/", "/register", "/forgotpassword","/server-error"];
     return authPaths.includes(location.pathname);
   };
 
@@ -48,9 +49,11 @@ function App() {
             {!isAuthPage() && <Topbar setIsSidebar={setIsSidebar} email={email}/>}
             <ResponsiveAppBar />
             <Routes>
+            
               <Route path="/" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forgotpassword" element={<ForgotPassword />} />
+              <Route path="/server-error" element={<ServerProb />} />
               <Route path="/dashboard" element={<Dashboard email={email} />} />
               <Route path="/team" element={<Team />} />
               <Route path="/contacts" element={<Contacts />} />

@@ -15,11 +15,15 @@ import BarChart from "../../Components/dashboardPages/BarChart";
 import StatBox from "../../Components/dashboardPages/StatBox";
 import ProgressCircle from "../../Components/dashboardPages/ProgressCircle";
 import App from "../../Components/dashboardPages/Carousel";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../Features/UserSlice";
+import { Commet } from "react-loading-indicators";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [loading, setLoading] = useState(true);
+  const {user}=useSelector(selectUser)
 
   useEffect(() => {
     // Simulate loading for 2 seconds
@@ -30,7 +34,7 @@ const Dashboard = () => {
     return () => clearTimeout(timer); // Cleanup the timer on component unmount
   }, []);
 
-  if (loading) {
+  if (loading){
     return (
       <Box
         display="flex"
@@ -39,8 +43,9 @@ const Dashboard = () => {
         justifyContent="center"
         height="85vh"
       >
-        <ReactLoading type="bars" color={colors.greenAccent[500]} height={100} width={100} />
-        <Typography variant="h3" color={colors.grey[100]} sx={{ fontStyle: "italic" }}>Fetching user details</Typography>
+        <Commet color={colors.greenAccent[500]} size="medium" sx={{mt:100}} />
+        <Typography variant="h3" color={colors.grey[100]} sx={{ fontWeight: "bold",mt:'20px' }}>Fetching patient records</Typography>
+        <Typography variant="h5" color={colors.grey[100]} sx={{ fontWeight: "bold",mt:'6px' }}>PLease wait while we retrieve the lastest information for you</Typography>
       </Box>
     );
   }
@@ -49,7 +54,8 @@ const Dashboard = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+        <Header title="DASHBOARD" subtitle={`Welcome to your dashboard, ${user?.user?.firstName || " "}`
+} />
 
         <Box mb={"20px"}>
           <Button

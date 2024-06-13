@@ -20,7 +20,7 @@ const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-  const user = useSelector(selectUser);
+  const { user } = useSelector(selectUser);
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch=useDispatch()
   const navigate=useNavigate()
@@ -99,32 +99,38 @@ const Topbar = () => {
           padding: '10px', // Adjust padding for better spacing
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center'
+          alignItems: 'center',
+          borderRadius: '15px',
+          backgroundColor: colors.primary[400]
         }
       }}
     >
       <Box sx={{ width: '100%' }}>
-        <Typography variant="h6" sx={{ mb: 1 }}>
-          {user?.user?.name}
+        <Typography variant="h4" sx={{ mb: 0.5 }}>
+          {user?.user?.firstName}
         </Typography>
-        <Typography variant="body2" color="textSecondary" sx={{ mb: 1 }}>
+        <Typography variant="body4" color="textSecondary" sx={{ mb: 1 }}>
           {email ? email : "Unable to fetch"}
         </Typography>
-        <Divider sx={{ my: 1 }} />
-        <List>
-          <ListItemButton sx={{ px: 2 }}>
+        <Divider sx={{ my: 1,mx:-1.5 }} />
+        <List disablePadding>
+          <ListItemButton sx={{ px: 1 }}>
             <ListItemIcon>
               <SettingsOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary="Settings" />
           </ListItemButton>
-          <ListItemButton sx={{ px: 2 }}>
+          <ListItemButton sx={{ px: 1 }} 
+            onClick={()=>
+              navigate('/form')
+            }
+            >
             <ListItemIcon>
               <AccountCircleOutlined />
-            </ListItemIcon>
+            </ListItemIcon >
             <ListItemText primary="Profile" />
           </ListItemButton>
-          <ListItemButton sx={{ px: 2 }} onClick={handleClose}>
+          <ListItemButton sx={{ px: 1 }} onClick={handleClose}>
             <ListItemIcon>
               <ExitToAppOutlined />
             </ListItemIcon>

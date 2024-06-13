@@ -22,6 +22,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import EditIcon from '@mui/icons-material/Edit';
 import Snackbar from "@mui/material/Snackbar";
 import defaultPfp from '../../Assets/img/userpfp.png'
+import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -111,6 +112,9 @@ const Sidebar = () => {
 
   return (
     <Box
+        position= "-webkit-sticky"
+        top= "20px"
+        height="110vh"
       sx={{
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
@@ -159,7 +163,7 @@ const Sidebar = () => {
           </MenuItem>
 
           {!isCollapsed && (
-              <Box mb="25px">
+              <Box mb="20px">
                 <Box display="flex" justifyContent="center" alignItems="center" position="relative">
                   {pfploading ? (
                     <CircularProgress sx={{
@@ -211,7 +215,7 @@ const Sidebar = () => {
                     fontWeight="bold"
                     sx={{ m: "10px 0 0 0" }}
                   >
-                    {user?.user?.name}
+                    {user?.user?.user?.username}
                   </Typography>
                   <Typography variant="h5" color={colors.greenAccent[500]}>
                     {email}
@@ -341,6 +345,20 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Suport
+            </Typography>
+            <Item
+              title="Helpdesk"
+              to="/geography"
+              icon={<SupportAgentOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
              <Typography
               variant="h6"
               sx={{ m: "15px 15px 5px 7px" }}
@@ -360,5 +378,4 @@ const Sidebar = () => {
     </Box>
   );
 };
-
 export default Sidebar;

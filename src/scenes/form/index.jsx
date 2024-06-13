@@ -14,6 +14,7 @@ import {tokens} from '../../theme';
 import { CheckCircleOutline } from '@mui/icons-material';
 import Snackbar from '@mui/material/Snackbar';
 import EditIcon from '@mui/icons-material/Edit';
+import { LifeLine } from 'react-loading-indicators';
 
 const Form = () => {
   const theme = useTheme();
@@ -25,6 +26,8 @@ const Form = () => {
   const navigate = useNavigate();
   const [showSnackbar, setShowSnackbar] = useState(false);
   const user = useSelector(selectUser);
+  const [loadingMessage, setLoadingMessage] = useState('Establishing secure connection...');
+
   
 
   useEffect(() => {
@@ -37,12 +40,18 @@ const Form = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setTimeout(async () => {
-          const response = await axios.get('https://664af189a300e8795d43864b.mockapi.io/crud-op/1');
-          setData(response.data);
-          setLoading(false);
-          console.log(response.status);
-        }, 2000);
+        setLoadingMessage('Establishing secure connection...');
+        await new Promise(resolve => setTimeout(resolve, 1500)); // Wait 1 second
+
+        setLoadingMessage('Verifying account information...');
+        await new Promise(resolve => setTimeout(resolve, 1500)); // Wait 1 second
+
+        setLoadingMessage('Retrieving your profile settings...');
+        await new Promise(resolve => setTimeout(resolve, 1500)); // Wait 1 second
+
+        const response = await axios.get('https://664af189a300e8795d43864b.mockapi.io/crud-op/1');
+        setData(response.data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
         setLoading(false);
@@ -61,8 +70,9 @@ const Form = () => {
         justifyContent="center"
         height="85vh"
       >
-        <ReactLoading type="bars" color={colors.greenAccent[500]} height={100} width={100} />
-        <Typography variant="h3" color={colors.grey[100]} sx={{fontStyle:"italic"}}>Fetching user details</Typography>
+        <LifeLine color={colors.greenAccent[500]} speedPlus="-4" size="medium" text="" textColor=""   />        
+        <Typography variant="h3" color={colors.grey[100]} sx={{ fontWeight: "bold",mt:'30px' }}>Fetching user profile</Typography>
+        <Typography variant="h4" color={colors.grey[100]} sx={{ fontWeight: "bold",mt:'6px' }}>{loadingMessage}</Typography>
       </Box>
     );
   }

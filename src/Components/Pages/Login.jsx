@@ -44,7 +44,7 @@ const boxstyle = {
   transform: "translate(-50%, -50%)",
   width: "75%",
   height: "70%",
-  bgcolor: "background.paper",
+  bgcolor: "white",
   boxShadow: 24,
   borderTopLeftRadius: 30, 
   borderTopRightRadius: 30, 
@@ -77,38 +77,42 @@ export default function Login() {
 
   const onSubmit = async (values) => {
     const { email, password } = values;
-
+  
     console.log({ email, password }); // Optional for debugging
-    setLoading(true);
+    setLoading(true); // Set loading to true when form is submitted
+  
     try {
-      const response = await axios.post(loginUrl, {
+      const response = await axios.post('http://localhost:8080/login', {
         email,
         password
-        //expiresInMins: 30,
       });
-
-      if (response.status===200) {
+  
+      if (response.status === 200) {
         console.log("Login successful:", response.data);
-        localStorage.setItem('token',response.data.token)
-
-        const userData = response.data
-        setLoading(false)
-        /*if (response.data.image) {
-            userData.image = response.data.image;
-        }*/
-        dispatch(login(userData,email)); 
-        localStorage.setItem('email',email)
-        navigate('/dashboard',{state : {email}});
+        localStorage.setItem('token', response.data.token);
+  
+        const userData = response.data;
+        // Delay navigation for 2 seconds
+        setTimeout(() => {
+          setLoading(false); // Set loading to false after 2 seconds
+          dispatch(login(userData, email)); 
+          localStorage.setItem('email', email);
+          navigate('/dashboard', { state: { email } });
+        }, 2000);
+      } else {
+        console.error("Login failed:", response.data.message);
+        setOpenSnackbar(true);
+        setLoading(false);
       }
-       else  console.error("Login failed:", response.data.message); 
-       setLoading(false);
-      
-    } catch (error ){
+    } catch (error) {
       setLoading(false);
-      setOpenSnackbar(true);
+      if (error.message === 'Network Error') {
+        navigate('/server-error');
+      }
       console.error("Login error:", error.response?.data || error.message);
-    };
+    }
   };
+  
 
   const handleClose = (reason) => {
     if (reason === "clickaway"){
