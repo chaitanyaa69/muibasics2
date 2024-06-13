@@ -13,51 +13,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Initialize OpenAI API with API key
-const openai = new OpenAIApi(process.env.OPENAI_API_KEY);
-
-app.post('/find-complexity', async (req, res) => {
-    try {
-        // Your logic to interact with OpenAI API goes here
-        
-        // Example response for now
-        return res.status(200).json({
-            message: 'Success',
-        });
-    } catch (error){
-        console.error('Error:', error);
-        return res.status(500).json({
-            message: 'Internal Server Error',
-        });
-    }
-});
-// OpenAI route
-app.post('/api/gemini', async (req, res) => {
-    const prompt = req.body.prompt;
-    console.log(`Received prompt: ${prompt}`);
-  
-    try {
-      const response = await axios.post(
-        'https://api.gemini.com/v1/mytrades', // Hypothetical URL
-        {
-          model: 'gemini-1', // Hypothetical model
-          prompt: prompt,
-          max_tokens: 150,
-          temperature: 0.7
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${process.env.GEMINI_API_KEY}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      console.log('Gemini AI API response:', response.data);
-      res.json(response.data);
-    } catch (error) {
-      console.error('Error during Gemini AI API request:', error.response?.data || error.message);
-      res.status(500).send('Server error');
-    }
-  });
   
 // Get all users route
 app.get('/users', async (req, res) => {
