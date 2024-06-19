@@ -1,7 +1,8 @@
 {
   "files": {
     "main.css": "/muibasics2/static/css/main.714dda56.css",
-    "main.js": "/muibasics2/static/js/main.cffa8a7e.js",
+    "main.js": "/muibasics2/static/js/main.13b35feb.js",
+    "static/js/877.c6a738cc.chunk.js": "/muibasics2/static/js/877.c6a738cc.chunk.js",
     "static/media/login11.jpg": "/muibasics2/static/media/login11.c571215058dd2ae759c5.jpg",
     "static/media/altreg.jpg": "/muibasics2/static/media/altreg.6f2abbabfc1f1ba3737e.jpg",
     "static/media/forgpass1.jpg": "/muibasics2/static/media/forgpass1.67b9083681242e7b11df.jpg",
@@ -9,11 +10,12 @@
     "static/media/bgimgg3.jpg": "/muibasics2/static/media/bgimgg3.c75948358ae73be191a7.jpg",
     "static/media/userpfp.png": "/muibasics2/static/media/userpfp.a6cc2d540cfc04d814e2.png",
     "index.html": "/muibasics2/index.html",
+    "static/media/.env": "/muibasics2/static/media/.env.3fac4c7dc0a742c9d3be",
     "main.714dda56.css.map": "/muibasics2/static/css/main.714dda56.css.map",
-    "main.cffa8a7e.js.map": "/muibasics2/static/js/main.cffa8a7e.js.map"
+    "main.13b35feb.js.map": "/muibasics2/static/js/main.13b35feb.js.map"
   },
   "entrypoints": [
     "static/css/main.714dda56.css",
-    "static/js/main.cffa8a7e.js"
+    "static/js/main.13b35feb.js"
   ]
 }
