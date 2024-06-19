@@ -82,7 +82,7 @@ export default function Login() {
     setLoading(true); // Set loading to true when form is submitted
   
     try {
-      const response = await axios.post(loginUrl, {
+      const response = await axios.post('http://localhost:8080/login', {
         email,
         password
       });
