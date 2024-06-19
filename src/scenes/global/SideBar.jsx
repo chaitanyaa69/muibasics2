@@ -45,7 +45,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const navigate  = useNavigate();
   const [selected, setSelected] = useState("Dashboard");
   const user = useSelector(selectUser);
@@ -354,7 +354,7 @@ const Sidebar = () => {
             </Typography>
             <Item
               title="Helpdesk"
-              to="/geography"
+              to="/support"
               icon={<SupportAgentOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

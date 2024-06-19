@@ -1,16 +1,24 @@
-const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs').promises; // Import file system module
-const cors = require('cors');
+const cors = require('cors')
+const PORT = 8080;
+require('dotenv').config();
+
+
+
+  //apiKey: "sk-proj-XjVFUtwMPTDKIk9pGWAlT3BlbkFJQz9VaxL0ZliNa3Wv01SK",
+
+
+
 const app = express();
-const PORT = process.env.PORT || 8080;
 
 // Middleware to parse JSON requests
 app.use(bodyParser.json());
 app.use(cors());
 
 // Initialize OpenAI API with API key
+
   
 // Get all users route
 app.get('/users', async (req, res) => {

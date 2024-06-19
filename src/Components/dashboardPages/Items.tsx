@@ -14,7 +14,6 @@ export interface ItemProps {
 
 
 const Items =(props : ItemProps) =>{
-
     return (
         <Paper>
             <div

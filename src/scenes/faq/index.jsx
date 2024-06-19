@@ -32,7 +32,7 @@ const FAQ = () => {
       <Header title="FAQ" subtitle="Frequently Asked Questions Page" />
 
       {faqList.map((faq, index) => (
-        <Accordion key={index} defaultExpanded>
+        <Accordion key={index} sx={{ backgroundColor: colors.blueAccent[900], mb: "10px" }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography color={colors.greenAccent[500]} variant="h5">
               {faq.question}

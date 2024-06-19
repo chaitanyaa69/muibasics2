@@ -20,6 +20,7 @@ import Login from './Components/Pages/Login';
 import Register from './Components/Pages/Register';
 import Appointments from "./scenes/calendar/calendar";
 import ServerProb from "./Components/Pages/ServerProb";
+import Support from "./scenes/support";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -65,6 +66,7 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/appointments" element={<Appointments />} />
               <Route path="/geography" element={<Geography />} />
+              <Route path="/support" element={<Support />} />
             </Routes>
           </main>
         </div>
